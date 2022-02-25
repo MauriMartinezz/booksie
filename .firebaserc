@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "booksie-77846": {
+      "hosting": {
+        "ng-books": [
+          "booksie-77846"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "booksie-77846"
+  }
+}

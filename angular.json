@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "ng-books:build:production",
+            "firebaseProject": "booksie-77846",
+            "firebaseHostingSite": "booksie-77846"
+          }
         }
       }
     }
