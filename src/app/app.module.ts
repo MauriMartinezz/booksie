@@ -1,3 +1,4 @@
+import { BooksieModule } from './booksie/booksie.module';
 import { environment } from './../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -9,22 +10,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookCardComponent } from './booksie/components/book-card/book-card.component';
-import { HomeComponent } from './booksie/pages/home/home.component';
 import { LoginComponent } from './booksie/pages/login/login.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BookCardComponent,
-    HomeComponent,
-    LoginComponent,
-  ],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     SharedModule,
+    BooksieModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
