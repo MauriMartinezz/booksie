@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DescriptionPipe implements PipeTransform {
   transform(value: string, limit: number): string {
-    return `${value.substring(0, limit)}...`;
+    if (value) {
+      return `${value.substring(0, limit)}...`;
+    } else {
+      return '';
+    }
   }
 }

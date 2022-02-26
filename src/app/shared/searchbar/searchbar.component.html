@@ -1,0 +1,10 @@
+<form class="input-group" autocomplete="off" (ngSubmit)="search()">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search book"
+    name="searchBookInput"
+    [(ngModel)]="query"
+    (input)="keypress()"
+  />
+</form>

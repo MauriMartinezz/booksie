@@ -1,5 +1,6 @@
+import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-book-card',
@@ -7,14 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book-card.component.scss'],
 })
 export class BookCardComponent implements OnInit {
-  book: any;
-  constructor(private bs: BooksService) {}
-
-  ngOnInit(): void {
-    this.fetchBooks();
+  @Input() books!: Book[];
+  // books!: Book[];
+  results!: number;
+  constructor() {
+    // this.fetchBooks();
   }
 
-  fetchBooks() {
-    this.bs.getBooks().subscribe(console.log);
-  }
+  ngOnInit(): void {}
+
+  // fetchBooks() {
+  //   this.bs.getBooks('javascript').subscribe((m) => {
+  //     this.books = m.items;
+  //     this.results = m.totalItems;
+  //     console.log(this.books);
+  //     // console.log(this.results);
+  //   });
 }

@@ -1,4 +1,9 @@
-<div class="root my-3">
+<div class="root my-3 container">
+  <app-searchbar
+    (onEnter)="searchBook($event)"
+    (onDebounce)="searchBook($event)"
+    class="col-12 w-100"
+  ></app-searchbar>
   <h2 class="title">Results for Harry Potter and the Chamber of Secrets</h2>
-  <app-book-card></app-book-card>
+  <app-book-card [books]="books"></app-book-card>
 </div>
