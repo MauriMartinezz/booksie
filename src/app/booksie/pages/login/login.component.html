@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="container my-3" style="width: 40%">
+  <h3>Login</h3>
+  <form class="my-4 col-7 mx-auto">
+    <div class="col-12 my-3">
+      <label class="form-label">Username or email</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="username"
+        aria-label="First name"
+      />
+    </div>
+    <div class="col-12 my-3">
+      <label class="form-label">Password</label>
+
+      <input type="password" class="form-control" placeholder="password" />
+    </div>
+
+    <div class="my-3">
+      <div class="row">
+        <button class="btn btn-primary my-2 col-12">Login</button>
+      </div>
+      <div class="row">
+        <button class="btn btn-danger my-2 col-12">Login with Google</button>
+      </div>
+    </div>
+    <div class="col my-3">
+      <p>
+        Don't have an account yet?
+        <span
+          class="text-primary"
+          routerLink="/auth/register"
+          style="cursor: pointer"
+          >Sign in here.</span
+        >
+      </p>
+    </div>
+  </form>
+</div>

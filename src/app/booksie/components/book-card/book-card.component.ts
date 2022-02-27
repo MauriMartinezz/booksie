@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./book-card.component.scss'],
 })
 export class BookCardComponent implements OnInit {
-  @Input() books!: Book[];
+  @Input() books!: Book[] | undefined;
   // books!: Book[];
   results!: number;
   constructor() {

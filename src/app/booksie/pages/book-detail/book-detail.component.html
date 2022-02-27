@@ -1,1 +1,53 @@
-<p>book-detail works!</p>
+<div
+  class="d-flex justify-content-center"
+  style="min-height: 100vh"
+  *ngIf="loading"
+>
+  <div class="spinner-border align-self-center" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+</div>
+<div class="card my-3 w-50 mx-auto" *ngIf="book">
+  <div class="row g-0">
+    <div class="col-6">
+      <img
+        [src]="book.volumeInfo.imageLinks.thumbnail"
+        class="img-fluid w-100 rounded-start"
+        [alt]="book.volumeInfo.title"
+      />
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h3 class="card-title">{{ book.volumeInfo.title }}</h3>
+
+        <div class="card-text">
+          <h5>Author:</h5>
+          <p class="text-muted">{{ book.volumeInfo.authors[0] }}</p>
+        </div>
+        <div class="card-text">
+          <h5>Year:</h5>
+          <p class="text-muted">2004</p>
+        </div>
+
+        <div class="card-text">
+          <h5>Pages:</h5>
+          <p class="text-muted">{{ book.volumeInfo.pageCount }}</p>
+        </div>
+        <div class="card-text">
+          <h5>Rating:</h5>
+          <!-- <p class="text-muted">{{ book.volumeInfo.ratingsCount }}</p> -->
+        </div>
+
+        <div class="card-text">
+          <h5>Description:</h5>
+          <p>
+            {{ book.volumeInfo.description }}
+          </p>
+        </div>
+        <div class="buttons d-flex justify-content-end">
+          <button class="btn btn-primary">Verificar disponibilidad</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,11 @@
 <div class="card__container row justify-content-around">
   <div *ngFor="let book of books" class="card shadow col-3 my-3 mx-1 px-0">
     <img
-      [src]="book.volumeInfo.imageLinks.smallThumbnail"
+      [src]="
+        book.volumeInfo.imageLinks
+          ? book.volumeInfo.imageLinks.smallThumbnail
+          : 'https://thumbs.dreamstime.com/b/book-12044051.jpg'
+      "
       class="card-img-top"
       [alt]="book.volumeInfo.title"
     />
@@ -13,7 +17,9 @@
         <p class="card-text">
           {{ book.volumeInfo.description | description: 100 }}
         </p>
-        <a href="#" class="btn btn-primary flex-end">More info</a>
+        <a [routerLink]="['/book/', book.id]" class="btn btn-primary flex-end"
+          >More info</a
+        >
       </div>
     </div>
   </div>

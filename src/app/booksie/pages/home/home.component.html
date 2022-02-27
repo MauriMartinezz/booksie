@@ -4,6 +4,9 @@
     (onDebounce)="searchBook($event)"
     class="col-12 w-100"
   ></app-searchbar>
-  <h2 class="title">Results for Harry Potter and the Chamber of Secrets</h2>
+  <h2 class="title" *ngIf="query && books">Results for {{ query }}</h2>
+  <h2 class="title" *ngIf="!books && query">
+    No results found with {{ query }}
+  </h2>
   <app-book-card [books]="books"></app-book-card>
 </div>

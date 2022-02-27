@@ -1,0 +1,8 @@
+.bi-heart-fill {
+  transition: all 300ms;
+  font-size: 1.5rem;
+  &:hover {
+    color: red;
+    font-size: 1.8rem;
+  }
+}

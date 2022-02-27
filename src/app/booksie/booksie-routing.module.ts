@@ -1,3 +1,5 @@
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 import { BookDetailComponent } from './pages/book-detail/book-detail.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +16,19 @@ const routes: Routes = [
       {
         path: ':id',
         component: BookDetailComponent,
+      },
+    ],
+  },
+  {
+    path: 'auth',
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
       },
     ],
   },

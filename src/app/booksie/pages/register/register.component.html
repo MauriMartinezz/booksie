@@ -1,0 +1,104 @@
+<div class="container my-3" style="width: 40%">
+  <h3>Register</h3>
+  <form class="my-4">
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Name*</label>
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="First name"
+          aria-label="First name"
+        />
+      </div>
+      <div class="col">
+        <label class="form-label">Last name*</label>
+
+        <input type="text" class="form-control" placeholder="Last name" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="username">Username*</label>
+        <input type="text" class="form-control" />
+      </div>
+      <div class="col d-flex align-items-end">
+        <select
+          class="form-select form-select-lg mb-3"
+          aria-label=".form-select-lg example"
+        >
+          <option selected>Seleccionar localidad</option>
+          <option value="2">CABA</option>
+          <option value="1">GBA Norte</option>
+          <option value="3">GBA Sur</option>
+          <option value="3">Provincia de Buenos Aires</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="username">Identification*</label>
+        <input type="text" class="form-control" placeholder="111.111.111" />
+      </div>
+
+      <div class="col">
+        <label for="username">Contact number</label>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="+54 9 11239883"
+        />
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <div class="col">
+        <label class="form-label">Email address*</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="booksie@mail.com"
+        />
+        <div class="form-text text-muted">
+          We'll never share your email with anyone else.
+        </div>
+      </div>
+      <div class="col">
+        <label class="form-label">Repeat mail address*</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="booksie@mail.com"
+        />
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <div class="col">
+        <label class="form-label">Password*</label>
+        <input type="password" class="form-control" />
+      </div>
+      <div class="col">
+        <label class="form-label">Repeat password*</label>
+        <input type="password" class="form-control" />
+      </div>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" />
+      <label class="form-check-label">Accept terms and conditions</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+  <div class="my-3">
+    <p>
+      Already have an account?
+      <span
+        class="text-primary"
+        routerLink="/auth/login"
+        style="cursor: pointer"
+        >login here.</span
+      >
+    </p>
+  </div>
+</div>

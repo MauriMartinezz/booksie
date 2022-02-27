@@ -78,6 +78,8 @@ export interface VolumeInfo {
   previewLink: string;
   infoLink: string;
   canonicalVolumeLink: string;
+  ratingsCount?: number;
+  averageRating?: number;
 }
 
 export interface ImageLinks {
