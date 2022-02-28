@@ -9,7 +9,6 @@ import { BooksService } from './services/books.service';
 import { DescriptionPipe } from './pipes/description.pipe';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BookDetailComponent } from './pages/book-detail/book-detail.component';
-import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { RegisterComponent } from './pages/register/register.component';
     BookCardComponent,
     HomeComponent,
     BookDetailComponent,
-    RegisterComponent,
   ],
   providers: [BooksService],
   imports: [CommonModule, BooksieRoutingModule, HttpClientModule, SharedModule],

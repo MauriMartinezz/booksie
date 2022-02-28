@@ -3,7 +3,9 @@
     <img
       [src]="
         book.volumeInfo.imageLinks
-          ? book.volumeInfo.imageLinks.smallThumbnail
+          ? book.volumeInfo.imageLinks.large
+            ? book.volumeInfo.imageLinks.large
+            : book.volumeInfo.imageLinks.thumbnail
           : 'https://thumbs.dreamstime.com/b/book-12044051.jpg'
       "
       class="card-img-top"
@@ -14,7 +16,7 @@
         <h5 class="card-title">
           {{ book.volumeInfo.title }}
         </h5>
-        <p class="card-text">
+        <p class="card-text" *ngIf="book.volumeInfo.description">
           {{ book.volumeInfo.description | description: 100 }}
         </p>
         <a [routerLink]="['/book/', book.id]" class="btn btn-primary flex-end"

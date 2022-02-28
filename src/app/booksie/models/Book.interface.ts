@@ -85,6 +85,10 @@ export interface VolumeInfo {
 export interface ImageLinks {
   smallThumbnail: string;
   thumbnail: string;
+  large: string;
+  extraLarge: string;
+  medium: string;
+  small: string;
 }
 
 export interface IndustryIdentifier {

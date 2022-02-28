@@ -11,7 +11,11 @@
   <div class="row g-0">
     <div class="col-6">
       <img
-        [src]="book.volumeInfo.imageLinks.thumbnail"
+        [src]="
+          book.volumeInfo.imageLinks.large
+            ? book.volumeInfo.imageLinks.large
+            : book.volumeInfo.imageLinks.thumbnail
+        "
         class="img-fluid w-100 rounded-start"
         [alt]="book.volumeInfo.title"
       />
@@ -22,7 +26,11 @@
 
         <div class="card-text">
           <h5>Author:</h5>
-          <p class="text-muted">{{ book.volumeInfo.authors[0] }}</p>
+          <p class="text-muted">
+            {{
+              book.volumeInfo.authors ? book.volumeInfo.authors[0] : "unknown"
+            }}
+          </p>
         </div>
         <div class="card-text">
           <h5>Year:</h5>
@@ -33,12 +41,8 @@
           <h5>Pages:</h5>
           <p class="text-muted">{{ book.volumeInfo.pageCount }}</p>
         </div>
-        <div class="card-text">
-          <h5>Rating:</h5>
-          <!-- <p class="text-muted">{{ book.volumeInfo.ratingsCount }}</p> -->
-        </div>
 
-        <div class="card-text">
+        <div class="card-text" *ngIf="book.volumeInfo.description">
           <h5>Description:</h5>
           <p>
             {{ book.volumeInfo.description }}
