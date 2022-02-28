@@ -1,11 +1,10 @@
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from './../services/auth.service';
 import { ValidatorService } from './../../shared/validators/validator.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  login$!: Observable<any>;
+
   public loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     password: [
@@ -20,7 +21,12 @@ export class LoginComponent implements OnInit {
       [Validators.required, Validators.pattern(this.vs.passwordPattern)],
     ],
   });
-  constructor(private fb: FormBuilder, private vs: ValidatorService) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly vs: ValidatorService,
+    private readonly auth: AuthService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -33,5 +39,9 @@ export class LoginComponent implements OnInit {
     this.formValid();
     this.loginForm.markAllAsTouched();
     console.log('logueado!');
+  }
+
+  googleLogin() {
+    this.auth.googleLogin().pipe(tap(() => this.router.navigateByUrl('/home')));
   }
 }

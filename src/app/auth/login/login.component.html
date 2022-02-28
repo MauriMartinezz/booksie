@@ -32,7 +32,10 @@
         </button>
       </div>
       <div class="row">
-        <button class="btn btn-danger my-2 col-10 mx-auto">
+        <button
+          class="btn btn-danger my-2 col-10 mx-auto"
+          (click)="googleLogin()"
+        >
           Login with Google
         </button>
       </div>
@@ -50,3 +53,5 @@
     </div>
   </form>
 </div>
+
+<ng-container *ngIf="login$ | async"></ng-container>

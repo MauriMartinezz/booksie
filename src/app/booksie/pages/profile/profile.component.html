@@ -1,0 +1,14 @@
+<div *ngIf="user$ | async as user; else loading">
+  <div class="card">
+    <img [src]="user.photoURL" [alt]="user.displayName" />
+    <div class="card-text">
+      <p>{{ user.displayName }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <h1>Loading...</h1>
+</ng-template>
+
+<ng-container *ngIf="logout$ | async"> </ng-container>

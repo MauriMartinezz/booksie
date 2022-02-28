@@ -9,6 +9,7 @@ import { BooksService } from './services/books.service';
 import { DescriptionPipe } from './pipes/description.pipe';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BookDetailComponent } from './pages/book-detail/book-detail.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BookDetailComponent } from './pages/book-detail/book-detail.component';
     BookCardComponent,
     HomeComponent,
     BookDetailComponent,
+    ProfileComponent,
   ],
   providers: [BooksService],
   imports: [CommonModule, BooksieRoutingModule, HttpClientModule, SharedModule],

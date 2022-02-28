@@ -1,3 +1,4 @@
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from './auth/auth.module';
 import { BooksieModule } from './booksie/booksie.module';
 import { environment } from './../environments/environment';
@@ -23,6 +24,7 @@ import { AppComponent } from './app.component';
     AuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   bootstrap: [AppComponent],
 })
