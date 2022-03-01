@@ -38,10 +38,10 @@ export class AuthService {
 
   async register(email: string, password: string): Promise<any> {
     try {
-      const result = await this.afAuth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const result = await this.afAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then();
+      this.afAuth.currentUser.then((m: any) => console.log(m.uid));
       return result;
     } catch (e) {
       console.log(e);

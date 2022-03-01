@@ -13,9 +13,7 @@ export class HomeComponent implements OnInit {
   public query!: string;
   constructor(private bs: BooksService, private fs: FirebaseService) {}
 
-  ngOnInit(): void {
-    this.getUsers();
-  }
+  ngOnInit(): void {}
 
   searchBook(e: string) {
     this.query = e;
@@ -24,7 +22,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getUsers() {
-    this.fs.getUsers().subscribe(console.log);
-  }
+  // getUsers() {
+  //   this.fs.getUsers().subscribe(console.log);
+  // }
 }

@@ -14,18 +14,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup = this.fb.group(
     {
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      username: ['', Validators.minLength(4)],
-      identification: ['', [Validators.required, Validators.min(1000000)]],
-      number: ['', [Validators.pattern(this.vs.numberPattern)]],
+      name: ['ejemplo', [Validators.required, Validators.minLength(2)]],
+      lastName: ['ejemplo', [Validators.required, Validators.minLength(2)]],
+      username: ['ejemplo', Validators.minLength(4)],
+      identification: [
+        '42964859',
+        [Validators.required, Validators.min(1000000)],
+      ],
+      phoneNumber: [500000, [Validators.min(100000)]],
       email: [
         '',
         [Validators.required, Validators.pattern(this.vs.emailPattern)],
       ],
       repeatEmail: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      repeatPassword: ['', [Validators.required]],
+      password: ['cheescake00', [Validators.required, Validators.minLength(8)]],
+      repeatPassword: ['cheescake00', [Validators.required]],
       terms: [false, Validators.requiredTrue],
     },
     {
@@ -61,9 +64,31 @@ export class RegisterComponent implements OnInit {
 
     try {
       const user = await this.as.register(email, password);
-      if (this.registerForm.value) {
-        this.fs.createUser(this.registerForm.value);
-        this.registerForm.reset();
+      if (this.registerForm.valid) {
+        const { email, identification, name, lastName, username, phoneNumber } =
+          this.registerForm.value;
+        const finalUser: User = {
+          identification,
+          name,
+          lastName,
+          email,
+          username,
+          phoneNumber,
+        };
+        console.log(this.registerForm.value);
+
+        this.fs.createUser(finalUser);
+        this.registerForm.reset({
+          name: 'ejemplo',
+          lastName: 'ejemplo',
+          username: 'ejemplo',
+          identification: '42964859',
+          number: '3323-2323',
+          email: '',
+          repeatEmail: '',
+          password: 'cheesecake00',
+          repeatPassword: 'cheesecake00',
+        });
         this.router.navigate(['/home']);
       }
     } catch (e) {
