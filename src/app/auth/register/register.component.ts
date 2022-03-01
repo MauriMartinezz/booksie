@@ -1,3 +1,7 @@
+import { User } from 'src/app/auth/models/user.interface';
+import { FirebaseService } from './../../shared/services/firebase.service';
+import { Router } from '@angular/router';
+import { AuthService } from './../services/auth.service';
 import { ValidatorService } from './../../shared/validators/validator.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,7 +16,7 @@ export class RegisterComponent implements OnInit {
     {
       name: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
-      username: ['', Validators.required, Validators.minLength(4)],
+      username: ['', Validators.minLength(4)],
       identification: ['', [Validators.required, Validators.min(1000000)]],
       number: ['', [Validators.pattern(this.vs.numberPattern)]],
       email: [
@@ -20,14 +24,7 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.pattern(this.vs.emailPattern)],
       ],
       repeatEmail: ['', [Validators.required]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.pattern(this.vs.passwordPattern),
-        ],
-      ],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       repeatPassword: ['', [Validators.required]],
       terms: [false, Validators.requiredTrue],
     },
@@ -38,7 +35,13 @@ export class RegisterComponent implements OnInit {
       ],
     }
   );
-  constructor(private fb: FormBuilder, private vs: ValidatorService) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly vs: ValidatorService,
+    private readonly as: AuthService,
+    private readonly router: Router,
+    private readonly fs: FirebaseService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -53,8 +56,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get(label)?.touched;
   }
 
-  sendForm() {
-    console.log('formulario enviado');
-    this.registerForm.reset();
+  async onRegister() {
+    const { email, password } = this.registerForm.value;
+
+    try {
+      const user = await this.as.register(email, password);
+      if (this.registerForm.value) {
+        this.fs.createUser(this.registerForm.value);
+        this.registerForm.reset();
+        this.router.navigate(['/home']);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

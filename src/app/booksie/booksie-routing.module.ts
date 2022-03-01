@@ -5,10 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
     path: 'book',
     children: [
       {
@@ -18,8 +14,8 @@ const routes: Routes = [
     ],
   },
   {
-    path: '**',
-    redirectTo: '',
+    path: '',
+    component: HomeComponent,
   },
 ];
 

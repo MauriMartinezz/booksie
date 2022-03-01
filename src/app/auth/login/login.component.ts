@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './../services/auth.service';
 import { ValidatorService } from './../../shared/validators/validator.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly vs: ValidatorService,
-    private readonly auth: AuthService,
+    private readonly as: AuthService,
     private readonly router: Router
   ) {}
 
@@ -34,14 +34,28 @@ export class LoginComponent implements OnInit {
     return this.loginForm.invalid && this.loginForm.touched;
   }
 
-  login() {
-    console.log(this.loginForm.valid);
-    this.formValid();
-    this.loginForm.markAllAsTouched();
-    console.log('logueado!');
+  async onLogin() {
+    const { username, password } = this.loginForm.value;
+    try {
+      const user = await this.as.login(
+        username.trim().toString(),
+        password.trim().toString()
+      );
+
+      if (user) {
+        this.router.navigate(['/home']);
+      } else {
+        this.loginForm.markAllAsTouched();
+        this.formValid();
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   googleLogin() {
-    this.auth.googleLogin().pipe(tap(() => this.router.navigateByUrl('/home')));
+    this.as.googleLogin().subscribe(() => {
+      this.router.navigate(['/home']);
+    });
   }
 }

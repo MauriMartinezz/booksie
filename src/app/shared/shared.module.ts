@@ -1,3 +1,4 @@
+import { FirebaseService } from './services/firebase.service';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
@@ -10,5 +11,6 @@ import { FormsModule } from '@angular/forms';
   declarations: [NavbarComponent, FooterComponent, SearchbarComponent],
   exports: [NavbarComponent, FooterComponent, SearchbarComponent],
   imports: [CommonModule, FormsModule, RouterModule],
+  providers: [FirebaseService],
 })
 export class SharedModule {}

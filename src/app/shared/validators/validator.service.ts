@@ -9,7 +9,7 @@ export class ValidatorService {
   public numberPattern: string =
     '/^(?:(?:00)?549?)?0?(?:11|[2368]d)(?:(?=d{0,2}15)d{2})??d{8}$/';
   public passwordPattern: string =
-    '^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$';
+    '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
   constructor() {}
 

@@ -9,15 +9,16 @@ import {
 
 const redirectUnauthorizedToLogin = () =>
   redirectUnauthorizedTo(['/auth/login']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['/home']);
+const redirectLoggedInToHome = () => redirectLoggedInTo('/home');
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToHome },
   },
   {
-    path: '',
+    path: 'home',
     loadChildren: () =>
       import('./booksie/booksie.module').then((m) => m.BooksieModule),
     canActivate: [AngularFireAuthGuard],

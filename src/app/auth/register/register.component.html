@@ -1,6 +1,6 @@
 <div class="container my-3" style="width: 40%">
   <h3>Register</h3>
-  <form class="my-4" [formGroup]="registerForm" (ngSubmit)="sendForm()">
+  <form class="my-4" [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <!-- Name and last name -->
     <div class="row mb-3">
       <div class="col">
@@ -123,8 +123,8 @@
         />
 
         <span class="form-text text-danger" *ngIf="validateLabel('password')"
-          >Password must have at least 8 characters, 1 number and 1 special
-          characters</span
+          >Password must have at least 8 characters, 1 number, an uppercase
+          letter and 1 special characters</span
         >
       </div>
       <div class="col">
@@ -143,12 +143,16 @@
     </div>
     <!-- Terms and conditions -->
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" />
-      <label class="form-check-label" formControlName="terms"
-        >Accept terms and conditions</label
-      >
+      <input type="checkbox" class="form-check-input" formControlName="terms" />
+      <label class="form-check-label">Accept terms and conditions</label>
     </div>
-    <button type="submit" class="btn btn-primary">Send</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!registerForm.valid"
+    >
+      Send
+    </button>
   </form>
   <!-- Login -->
   <div class="my-3">
@@ -163,3 +167,7 @@
     </p>
   </div>
 </div>
+
+<pre>
+  {{ registerForm.controls["password"].valid }}
+</pre>

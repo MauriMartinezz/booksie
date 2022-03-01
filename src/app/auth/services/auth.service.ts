@@ -1,13 +1,11 @@
 import { switchMap } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import firebase from 'firebase/compat/app';
 
-import { Router } from '@angular/router';
 import { BehaviorSubject, from, Observable } from 'rxjs';
-// import { User } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +16,7 @@ export class AuthService {
     switchMap((user) => user)
   );
 
-  constructor(
-    private readonly router: Router,
-    private readonly afAuth: AngularFireAuth,
-    private readonly afs: AngularFirestore
-  ) {}
+  constructor(public readonly afAuth: AngularFireAuth) {}
 
   googleLogin(): Observable<firebase.auth.UserCredential> {
     return from(
@@ -30,7 +24,35 @@ export class AuthService {
     );
   }
 
-  logout(): Observable<void> {
-    return from(this.afAuth.signOut());
+  async login(email: string, password: string): Promise<any> {
+    try {
+      const result = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async register(email: string, password: string): Promise<any> {
+    try {
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async logout(): Promise<any> {
+    try {
+      await this.afAuth.signOut();
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

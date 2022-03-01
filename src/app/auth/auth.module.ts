@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -19,5 +20,6 @@ import { FirebaseAppModule } from '@angular/fire/app';
     AngularFirestoreModule,
     FirebaseAppModule,
   ],
+  providers: [AuthService],
 })
 export class AuthModule {}
