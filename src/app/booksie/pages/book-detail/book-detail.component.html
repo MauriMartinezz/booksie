@@ -49,7 +49,10 @@
           </p>
         </div>
         <div class="buttons d-flex justify-content-end">
-          <button class="btn btn-primary">Verificar disponibilidad</button>
+          <app-confirm
+            [book]="book.volumeInfo.title"
+            (onAccept)="confirmLoan($event)"
+          ></app-confirm>
         </div>
       </div>
     </div>

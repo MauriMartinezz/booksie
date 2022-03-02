@@ -6,4 +6,5 @@ export interface User {
   username: string;
   phoneNumber?: number;
   location?: string;
+  books?: [];
 }

@@ -60,10 +60,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister() {
-    const { email, password } = this.registerForm.value;
-
     try {
-      const user = await this.as.register(email, password);
       if (this.registerForm.valid) {
         const { email, identification, name, lastName, username, phoneNumber } =
           this.registerForm.value;
@@ -76,19 +73,8 @@ export class RegisterComponent implements OnInit {
           phoneNumber,
         };
         console.log(this.registerForm.value);
-
+        this.as.userEmailPassword = finalUser;
         this.fs.createUser(finalUser);
-        this.registerForm.reset({
-          name: 'ejemplo',
-          lastName: 'ejemplo',
-          username: 'ejemplo',
-          identification: '42964859',
-          number: '3323-2323',
-          email: '',
-          repeatEmail: '',
-          password: 'cheesecake00',
-          repeatPassword: 'cheesecake00',
-        });
         this.router.navigate(['/home']);
       }
     } catch (e) {

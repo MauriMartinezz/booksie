@@ -36,6 +36,10 @@ export class BooksService {
   getBookById(id: string): Observable<any> {
     return this.http.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
   }
+
+  getBookId(book: Book): string {
+    return book.id;
+  }
 }
 
 //AIzaSyA7K9EINdInga9JC4Ukrd3tEbbAYbUD7bY

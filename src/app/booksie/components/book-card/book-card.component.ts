@@ -1,6 +1,7 @@
 import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-book-card',
@@ -9,19 +10,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BookCardComponent implements OnInit {
   @Input() books!: Book[] | undefined;
-  // books!: Book[];
   results!: number;
-  constructor() {
-    // this.fetchBooks();
-  }
+  constructor(private readonly fs: FirebaseService) {}
 
   ngOnInit(): void {}
-
-  // fetchBooks() {
-  //   this.bs.getBooks('javascript').subscribe((m) => {
-  //     this.books = m.items;
-  //     this.results = m.totalItems;
-  //     console.log(this.books);
-  //     // console.log(this.results);
-  //   });
 }

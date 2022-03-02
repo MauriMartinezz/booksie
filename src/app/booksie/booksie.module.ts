@@ -10,6 +10,8 @@ import { DescriptionPipe } from './pipes/description.pipe';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BookDetailComponent } from './pages/book-detail/book-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,15 @@ import { ProfileComponent } from './pages/profile/profile.component';
     HomeComponent,
     BookDetailComponent,
     ProfileComponent,
+    ConfirmComponent,
   ],
   providers: [BooksService],
-  imports: [CommonModule, BooksieRoutingModule, HttpClientModule, SharedModule],
+  imports: [
+    CommonModule,
+    BooksieRoutingModule,
+    HttpClientModule,
+    SharedModule,
+    NgbModalModule,
+  ],
 })
 export class BooksieModule {}

@@ -1,0 +1,34 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm loan</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <p>Are you sure you want to loan {{ book }}?</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="acceptLoan()"
+      (click)="modal.close('Save click')"
+    >
+      Confirm
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="declineLoan()"
+      (click)="modal.close('Save click')"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+  Loan book
+</button>

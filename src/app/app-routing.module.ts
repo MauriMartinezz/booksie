@@ -18,7 +18,7 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToHome },
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () =>
       import('./booksie/booksie.module').then((m) => m.BooksieModule),
     canActivate: [AngularFireAuthGuard],

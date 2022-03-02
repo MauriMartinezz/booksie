@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
 import { BehaviorSubject, from, Observable } from 'rxjs';
+import { User } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,21 @@ export class AuthService {
     switchMap((user) => user)
   );
 
+  public userEmailPassword: User = {
+    identification: 0,
+    name: '',
+    lastName: '',
+    email: '',
+    username: '',
+  };
+
   constructor(public readonly afAuth: AngularFireAuth) {}
+
+  getCurrentUser(): Promise<any> {
+    return this.afAuth.currentUser.then((m: any) => {
+      return m.uid;
+    });
+  }
 
   googleLogin(): Observable<firebase.auth.UserCredential> {
     return from(
@@ -38,10 +53,11 @@ export class AuthService {
 
   async register(email: string, password: string): Promise<any> {
     try {
-      const result = await this.afAuth
-        .createUserWithEmailAndPassword(email, password)
-        .then();
-      this.afAuth.currentUser.then((m: any) => console.log(m.uid));
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
       return result;
     } catch (e) {
       console.log(e);
