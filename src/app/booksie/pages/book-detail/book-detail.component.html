@@ -49,10 +49,7 @@
           </p>
         </div>
         <div class="buttons d-flex justify-content-end">
-          <app-confirm
-            [book]="book.volumeInfo.title"
-            (onAccept)="confirmLoan($event)"
-          ></app-confirm>
+          <app-confirm [book]="book.volumeInfo.title" (onAccept)="confirmBook($event)"></app-confirm>
         </div>
       </div>
     </div>

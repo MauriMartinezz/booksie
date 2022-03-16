@@ -1,8 +1,10 @@
+import { BookLoan } from './../../booksie/models/BookLoan.interface';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  DocumentData,
 } from '@angular/fire/compat/firestore';
 import { User } from 'src/app/auth/models/user.interface';
 import { Book } from 'src/app/booksie/models/Book.interface';
@@ -26,10 +28,24 @@ export class FirebaseService {
   getUsers() {
     return this.users;
   }
+  getUserById(id: string) {
+    return this.firestore.collection('/users').doc(id);
+  }
 
+  fetchUserData(id: string): Observable<any> {
+    return this.firestore.collection('/users').doc(id).valueChanges();
+  }
+
+  getUsersBooksByUserId(uid: string): Observable<DocumentData[]> {
+    return this.firestore
+      .collection('/users')
+      .doc(uid)
+      .collection('books')
+      .valueChanges();
+  }
   createUser(user: User) {
     if (user) {
-      this.userCollection.doc(user.identification.toString()).set(user);
+      this.userCollection.doc(user.uid).set(user);
     } else {
       console.error("User doesn't have the correct format");
     }
@@ -43,10 +59,7 @@ export class FirebaseService {
     const path = this.loansCollection.doc(bid);
 
     if (!this.loansCollection.doc(bid)) {
-      this.loansCollection
-        .doc(bid)
-        .collection('/users')
-        .add({ identification });
+      path.collection('/users').add({ identification });
       path.set({
         bid: bid,
       });

@@ -21,6 +21,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     BookDetailComponent,
     ProfileComponent,
     ConfirmComponent,
+    ProfileComponent,
   ],
   providers: [BooksService],
   imports: [

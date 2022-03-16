@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['ejemplo', [Validators.required, Validators.minLength(2)]],
       username: ['ejemplo', Validators.minLength(4)],
       identification: [
-        '42964859',
+        42964859,
         [Validators.required, Validators.min(1000000)],
       ],
       phoneNumber: [500000, [Validators.min(100000)]],
@@ -41,9 +41,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly vs: ValidatorService,
-    private readonly as: AuthService,
     private readonly router: Router,
-    private readonly fs: FirebaseService
+    private readonly fs: FirebaseService,
+    private readonly as: AuthService
   ) {}
 
   ngOnInit(): void {}
@@ -64,18 +64,22 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.valid) {
         const { email, identification, name, lastName, username, phoneNumber } =
           this.registerForm.value;
-        const finalUser: User = {
-          identification,
-          name,
-          lastName,
-          email,
-          username,
-          phoneNumber,
-        };
-        console.log(this.registerForm.value);
-        this.as.userEmailPassword = finalUser;
-        this.fs.createUser(finalUser);
-        this.router.navigate(['/home']);
+
+        const password: string = this.registerForm.controls['password'].value;
+
+        this.as.register(email, password).then((u) => {
+          // uid = u.user?.uid;
+          this.fs.createUser({
+            identification,
+            name,
+            lastName,
+            email,
+            username,
+            phoneNumber,
+            uid: u.user?.uid,
+          } as User);
+          this.router.navigate(['/home']);
+        });
       }
     } catch (e) {
       console.log(e);

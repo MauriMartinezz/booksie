@@ -1,3 +1,4 @@
+import { BookLoan } from './../../models/BookLoan.interface';
 import { Book, VolumeInfo } from './../../models/Book.interface';
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books.service';
@@ -19,19 +20,17 @@ export class BookDetailComponent implements OnInit {
   public loading: boolean = true;
 
   public openModal: boolean = true;
-  public isLoanConfirm: boolean = false;
   public bid!: string;
 
   constructor(
     private readonly bs: BooksService,
     private readonly router: ActivatedRoute,
     private readonly fs: FirebaseService,
-    private as: AuthService
+    private readonly as: AuthService
   ) {}
 
   ngOnInit(): void {
     this.fetchBook();
-    this.checkDisponibility();
   }
 
   fetchBook() {
@@ -44,21 +43,27 @@ export class BookDetailComponent implements OnInit {
     });
   }
 
-  checkDisponibility() {
-    this.fs.loans.subscribe((m) => {});
+  confirmBook(e: boolean) {
+    let currentUser: string;
+    let bookToLoan: BookLoan = {
+      id: this.book.id,
+      volumeInfo: this.book.volumeInfo,
+    };
+    this.as.getCurrentUser().then((m: string) => {
+      currentUser = m;
+      if (e) {
+        this.loanBook(currentUser, bookToLoan);
+        console.log('Libro prestado exitosamente');
+      }
+    });
   }
-  confirmLoan(e: any) {
-    if (e) {
-      this.as.getCurrentUser().then((m) => {
-        this.openModal = true;
-        this.fs.createLoan(this.bid, m);
-      });
-    } else {
-      false;
-    }
-  }
-  createLoan() {
-    if (this.isLoanConfirm) {
-    }
+  loanBook(uid: string, book: BookLoan) {
+    this.fs.getUserById(uid!).collection('books').doc(book.id).set(book);
+
+    this.fs
+      .getUserById(uid!)
+      .collection('books')
+      .valueChanges()
+      .subscribe(console.log);
   }
 }

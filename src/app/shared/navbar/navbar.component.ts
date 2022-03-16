@@ -14,16 +14,11 @@ export class NavbarComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // logoutGoogle() {
-  //   this.authService
-  //     .logoutGoogle()
-  //     .subscribe(() => this.router.navigateByUrl('/auth/login'));
-  // }
-
   async logout() {
     try {
-      this.authService.logout();
-      this.router.navigate(['/auth/login']);
+      this.authService.logout().then(() => {
+        this.router.navigate(['/auth/login']);
+      });
     } catch (e) {
       console.log(e);
     }

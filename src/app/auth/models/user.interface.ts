@@ -1,3 +1,4 @@
+import { BookLoan } from './../../booksie/models/BookLoan.interface';
 export interface User {
   identification: number;
   name: string;
@@ -6,5 +7,6 @@ export interface User {
   username: string;
   phoneNumber?: number;
   location?: string;
-  books?: [];
+  books?: BookLoan[];
+  uid?: string;
 }

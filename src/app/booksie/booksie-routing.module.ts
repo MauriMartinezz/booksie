@@ -1,3 +1,4 @@
+import { ProfileComponent } from './pages/profile/profile.component';
 import { BookDetailComponent } from './pages/book-detail/book-detail.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,10 @@ const routes: Routes = [
         component: BookDetailComponent,
       },
     ],
+  },
+  {
+    path: 'user/:id',
+    component: ProfileComponent,
   },
   {
     path: '',

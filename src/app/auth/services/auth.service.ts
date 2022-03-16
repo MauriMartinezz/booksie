@@ -6,7 +6,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
 import { BehaviorSubject, from, Observable } from 'rxjs';
-import { User } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +15,6 @@ export class AuthService {
   user$: Observable<firebase.User | null> = this.user.pipe(
     switchMap((user) => user)
   );
-
-  public userEmailPassword: User = {
-    identification: 0,
-    name: '',
-    lastName: '',
-    email: '',
-    username: '',
-  };
 
   constructor(public readonly afAuth: AngularFireAuth) {}
 

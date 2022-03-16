@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { FirebaseService } from './../../../shared/services/firebase.service';
 import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   public books!: Book[];
   public query!: string;
-  constructor(private bs: BooksService, private fs: FirebaseService) {}
+  constructor(private bs: BooksService, private readonly as: AuthService) {}
 
   ngOnInit(): void {}
 
