@@ -1,8 +1,8 @@
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { FirebaseService } from './../../../shared/services/firebase.service';
 import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +12,16 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   public books!: Book[];
   public query!: string;
-  constructor(private bs: BooksService, private readonly as: AuthService) {}
+  showToast!: boolean;
+  constructor(
+    private bs: BooksService,
+    private readonly as: AuthService,
+    private toastr: ToastrService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.shouldToastBeShown();
+  }
 
   searchBook(e: string) {
     this.query = e;
@@ -23,7 +30,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // getUsers() {
-  //   this.fs.getUsers().subscribe(console.log);
-  // }
+  shouldToastBeShown(): boolean {
+    if (this.bs.showToastGetter == true) {
+      this.toastr.success('Book lend succesfully', 'Done!');
+
+      return true;
+    } else {
+      this.showToast = false;
+      return false;
+    }
+  }
 }

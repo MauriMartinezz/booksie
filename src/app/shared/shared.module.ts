@@ -7,7 +7,6 @@ import { FooterComponent } from './footer/footer.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { FormsModule } from '@angular/forms';
 import { FirebaseAppModule } from '@angular/fire/app';
-
 @NgModule({
   declarations: [NavbarComponent, FooterComponent, SearchbarComponent],
   exports: [NavbarComponent, FooterComponent, SearchbarComponent],

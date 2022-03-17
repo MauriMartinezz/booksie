@@ -1,12 +1,11 @@
 import { BookLoan } from './../../models/BookLoan.interface';
-import { Book, VolumeInfo } from './../../models/Book.interface';
-import { Component, OnInit } from '@angular/core';
+import { Book } from './../../models/Book.interface';
+import { Component, OnInit, Output } from '@angular/core';
 import { BooksService } from '../../services/books.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { User } from 'src/app/auth/models/user.interface';
 
 @Component({
   selector: 'app-book-detail',
@@ -15,6 +14,7 @@ import { User } from 'src/app/auth/models/user.interface';
   providers: [NgbRatingConfig],
 })
 export class BookDetailComponent implements OnInit {
+  @Output() showToast: boolean = false;
   public book!: Book;
   public param: string = '';
   public loading: boolean = true;
@@ -24,7 +24,8 @@ export class BookDetailComponent implements OnInit {
 
   constructor(
     private readonly bs: BooksService,
-    private readonly router: ActivatedRoute,
+    private readonly activatedRouter: ActivatedRoute,
+    private readonly router: Router,
     private readonly fs: FirebaseService,
     private readonly as: AuthService
   ) {}
@@ -34,7 +35,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   fetchBook() {
-    this.router.params.subscribe((m) => {
+    this.activatedRouter.params.subscribe((m) => {
       this.bs.getBookById(m.id).subscribe((b) => {
         this.book = b;
         this.bid = b.id;
@@ -64,6 +65,9 @@ export class BookDetailComponent implements OnInit {
       .getUserById(uid!)
       .collection('books')
       .valueChanges()
-      .subscribe(console.log);
+      .subscribe(() => {
+        this.bs.showToastSetter = true;
+        this.router.navigate(['home']);
+      });
   }
 }

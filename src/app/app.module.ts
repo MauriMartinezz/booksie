@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from './auth/auth.module';
 import { BooksieModule } from './booksie/booksie.module';
@@ -25,6 +27,10 @@ import { AppComponent } from './app.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+    }),
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent],
 })
