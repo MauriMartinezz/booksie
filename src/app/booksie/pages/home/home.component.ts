@@ -21,7 +21,10 @@ export class HomeComponent implements OnInit {
   searchBook(e: string) {
     this.query = e;
     this.bs.getBooks(e).subscribe((book: Book[]) => {
-      this.books = book;
+      let bookList: Book[] = book.filter(
+        (volumeImages) => volumeImages.volumeInfo.imageLinks.medium
+      );
+      this.books = bookList;
     });
   }
 

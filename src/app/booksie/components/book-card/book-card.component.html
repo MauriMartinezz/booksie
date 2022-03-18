@@ -1,12 +1,17 @@
 <div class="card__container row justify-content-around">
-  <div *ngFor="let book of books" class="card shadow col-3 my-3 mx-1 px-0">
+  <div
+    *ngFor="let book of books"
+    class="card shadow col-3 my-3 mx-1 px-0"
+    [class]="{
+      'col-3': isBookLend,
+      row: isBookLend
+    }"
+  >
     <img
       [src]="
-        book.volumeInfo.imageLinks
+        book.volumeInfo.imageLinks.large
           ? book.volumeInfo.imageLinks.large
-            ? book.volumeInfo.imageLinks.large
-            : book.volumeInfo.imageLinks.thumbnail
-          : 'https://thumbs.dreamstime.com/b/book-12044051.jpg'
+          : book.volumeInfo.imageLinks.medium
       "
       class="card-img-top"
       [alt]="book.volumeInfo.title"
@@ -16,12 +21,23 @@
         <h5 class="card-title">
           {{ book.volumeInfo.title }}
         </h5>
-        <p class="card-text" *ngIf="book.volumeInfo.description">
+        <p
+          class="card-text"
+          *ngIf="book.volumeInfo.description"
+          [class]="{ 'd-none': isBookLend }"
+        >
           {{ book.volumeInfo.description | description: 100 }}
         </p>
-        <a [routerLink]="['/book/', book.id]" class="btn btn-primary flex-end"
-          >More info</a
-        >
+        <div class="buttons">
+          <a
+            [routerLink]="['/book/', book.id]"
+            class="btn btn-primary flex-end btn-block"
+            >More info</a
+          >
+          <button class="btn btn-danger mt-3 btn-block" *ngIf="isBookLend">
+            Return book
+          </button>
+        </div>
       </div>
     </div>
   </div>

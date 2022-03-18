@@ -29,13 +29,11 @@ export class ProfileComponent implements OnInit {
 
   fetchDataUser() {
     this.loading = true;
-
     this.authService
       .getCurrentUser()
       .then((id: string) => {
         this.books = this.firebase.getUsersBooksByUserId(id);
         this.user = this.firebase.fetchUserData(id);
-        this.user.subscribe(console.log);
       })
       .finally(() => (this.loading = false));
   }
