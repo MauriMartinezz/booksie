@@ -71,5 +71,14 @@ export class FirebaseService {
     }
   }
 
+  returnBook(bid: string, uid: string) {
+    this.firestore
+      .collection('users')
+      .doc(uid)
+      .collection('books')
+      .doc(bid)
+      .delete();
+  }
+
   isBookAvailable(book: Book, uid: string): any {}
 }
