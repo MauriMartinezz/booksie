@@ -1,4 +1,3 @@
-import { AuthService } from 'src/app/auth/services/auth.service';
 import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,11 +12,7 @@ export class HomeComponent implements OnInit {
   public books!: Book[];
   public query!: string;
   showToast!: boolean;
-  constructor(
-    private bs: BooksService,
-    private readonly as: AuthService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private bs: BooksService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.shouldToastBeShown();
@@ -32,8 +27,8 @@ export class HomeComponent implements OnInit {
 
   shouldToastBeShown(): boolean {
     if (this.bs.showToastGetter == true) {
+      this.bs.showToastSetter = false;
       this.toastr.success('Book lend succesfully', 'Done!');
-
       return true;
     } else {
       this.showToast = false;

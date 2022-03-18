@@ -15,8 +15,13 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'user/:id',
-    component: ProfileComponent,
+    path: 'user',
+    children: [
+      {
+        path: ':id',
+        component: ProfileComponent,
+      },
+    ],
   },
   {
     path: '',

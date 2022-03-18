@@ -1,0 +1,7 @@
+.close-button {
+  cursor: pointer;
+  &:hover {
+    color: rgb(255, 59, 59);
+    transform: scale(1.2);
+  }
+}

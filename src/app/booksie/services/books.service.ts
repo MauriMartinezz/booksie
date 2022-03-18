@@ -1,5 +1,4 @@
 import { Book } from './../models/Book.interface';
-import { User } from 'src/app/auth/models/user.interface';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

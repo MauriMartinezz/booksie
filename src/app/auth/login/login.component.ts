@@ -1,3 +1,4 @@
+import { BooksService } from './../../booksie/services/books.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly vs: ValidatorService,
     private readonly as: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly bs: BooksService
   ) {}
 
   ngOnInit(): void {}
@@ -44,6 +46,7 @@ export class LoginComponent implements OnInit {
       );
 
       if (user) {
+        this.bs.showToastSetter = true;
         this.router.navigate(['/home']);
       } else {
         this.loginForm.markAllAsTouched();
