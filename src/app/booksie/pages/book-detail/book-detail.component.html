@@ -13,9 +13,9 @@
     <div class="col-6">
       <img
         [src]="
-          book.volumeInfo.imageLinks.large
-            ? book.volumeInfo.imageLinks.large
-            : book.volumeInfo.imageLinks.medium
+          book.volumeInfo.imageLinks
+            ? book.volumeInfo.imageLinks.thumbnail
+            : '/assets/book.png'
         "
         class="img-fluid w-100 rounded-start"
         [alt]="book.volumeInfo.title"
@@ -34,8 +34,8 @@
           </p>
         </div>
         <div class="card-text">
-          <h5>Year:</h5>
-          <p class="text-muted">2004</p>
+          <h5>Published date:</h5>
+          <p class="text-muted">{{ book.volumeInfo.publishedDate }}</p>
         </div>
 
         <div class="card-text">
@@ -52,6 +52,7 @@
         <div class="buttons d-flex justify-content-end">
           <app-confirm
             [book]="book.volumeInfo.title"
+            [toLoan]="true"
             (onAccept)="confirmBook($event)"
           ></app-confirm>
         </div>

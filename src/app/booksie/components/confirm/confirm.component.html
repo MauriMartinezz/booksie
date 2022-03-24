@@ -1,11 +1,17 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Confirm loan</h4>
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="toLoan">
+      Confirm loan
+    </h4>
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="!toLoan">
+      Confirm return
+    </h4>
   </div>
   <div class="modal-body">
     <form>
       <div class="mb-3">
-        <p>Are you sure you want to loan {{ book }}?</p>
+        <p *ngIf="toLoan">Are you sure you want to loan {{ book }}?</p>
+        <p *ngIf="!toLoan">Are you sure you want to return this book?</p>
       </div>
     </form>
   </div>
@@ -29,6 +35,18 @@
   </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+<button
+  *ngIf="toLoan"
+  class="btn btn-lg btn-outline-primary"
+  (click)="open(content)"
+>
   Loan book
+</button>
+
+<button
+  *ngIf="!toLoan"
+  class="btn btn-danger mt-3 btn-block"
+  (click)="open(content)"
+>
+  Return book
 </button>

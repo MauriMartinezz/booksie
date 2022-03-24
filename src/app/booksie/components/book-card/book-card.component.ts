@@ -1,6 +1,7 @@
+import { ToastsService } from './../../../shared/services/toasts.service';
+import { ConfirmBookReturn } from './../../models/BookLoan.interface';
 import { Book } from './../../models/Book.interface';
-import { Component, Input, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentData } from '@angular/fire/compat/firestore';
 
 @Component({
@@ -8,11 +9,16 @@ import { DocumentData } from '@angular/fire/compat/firestore';
   templateUrl: './book-card.component.html',
   styleUrls: ['./book-card.component.scss'],
 })
-export class BookCardComponent implements OnInit {
+export class BookCardComponent {
   @Input() books!: Book[] | undefined | DocumentData[] | null;
   @Input() isBookLend: boolean = false;
-  results!: number;
-  constructor(private readonly fs: FirebaseService) {}
+  @Output() returnBook = new EventEmitter<ConfirmBookReturn>();
+  constructor(private toastr: ToastsService) {}
 
-  ngOnInit(): void {}
+  wantToReturnBook(bid: string, status: boolean) {
+    if (status) {
+      this.toastr.showToastSuccessSetter = false;
+      this.returnBook.emit({ bid, status });
+    }
+  }
 }

@@ -1,3 +1,8 @@
+import { ToastsService } from './../../../shared/services/toasts.service';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmBookReturn } from './../../models/BookLoan.interface';
+import { Book } from './../../models/Book.interface';
+import { BooksService } from './../../services/books.service';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 import { AuthService } from './../../../auth/services/auth.service';
@@ -18,9 +23,12 @@ export class ProfileComponent implements OnInit {
 
   loading: boolean = true;
   logout$!: any;
+  bookToReturn!: Book;
+
   constructor(
     private readonly authService: AuthService,
-    private firebase: FirebaseService
+    private firebase: FirebaseService,
+    private toastr: ToastsService
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +48,12 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.logout$ = this.authService.logout();
+  }
+
+  isBookReturnt(book: ConfirmBookReturn, uid: string) {
+    if (book.status && uid) {
+      this.firebase.returnBook(book.bid, uid);
+      this.toastr.showInfo('Done!', 'book return succesfully');
+    }
   }
 }

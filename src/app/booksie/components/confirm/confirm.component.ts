@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Book } from '../../models/Book.interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-confirm',
@@ -9,6 +8,8 @@ import { Book } from '../../models/Book.interface';
 })
 export class ConfirmComponent {
   @Input() book!: string;
+  @Input() toLoan!: boolean;
+
   @Output() onAccept = new EventEmitter<boolean>();
 
   closeResult = '';

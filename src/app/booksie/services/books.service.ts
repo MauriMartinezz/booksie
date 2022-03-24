@@ -9,15 +9,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class BooksService {
-  private showToast: boolean = false;
   private books: Book[] = [];
 
-  get showToastGetter(): boolean {
-    return this.showToast;
-  }
-  set showToastSetter(state: boolean) {
-    this.showToast = state;
-  }
   get booksGetter(): Book[] {
     return [...this.books];
   }

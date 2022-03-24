@@ -36,7 +36,9 @@
       <app-book-card
         [books]="books | async"
         [isBookLend]="true"
+        (returnBook)="isBookReturnt($event, user$.uid)"
       ></app-book-card>
+      <!-- (returnBook)="isBookReturnt($event.bid, user$.uid)" -->
     </div>
   </div>
 </div>

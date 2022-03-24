@@ -1,3 +1,4 @@
+import { ToastsService } from './../../../shared/services/toasts.service';
 import { BookLoan } from './../../models/BookLoan.interface';
 import { Book } from './../../models/Book.interface';
 import { Component, OnInit, Output } from '@angular/core';
@@ -27,7 +28,8 @@ export class BookDetailComponent implements OnInit {
     private readonly activatedRouter: ActivatedRoute,
     private readonly router: Router,
     private readonly fs: FirebaseService,
-    private readonly as: AuthService
+    private readonly as: AuthService,
+    private readonly toastr: ToastsService
   ) {}
 
   ngOnInit(): void {
@@ -54,20 +56,12 @@ export class BookDetailComponent implements OnInit {
       currentUser = m;
       if (e) {
         this.loanBook(currentUser, bookToLoan);
-        console.log('Libro prestado exitosamente');
       }
     });
   }
   loanBook(uid: string, book: BookLoan) {
-    this.fs.getUserById(uid!).collection('books').doc(book.id).set(book);
-
-    this.fs
-      .getUserById(uid!)
-      .collection('books')
-      .valueChanges()
-      .subscribe(() => {
-        this.bs.showToastSetter = true;
-        this.router.navigate(['home']);
-      });
+    this.fs.loanBook(uid, book);
+    this.router.navigate(['home']);
+    this.toastr.showToastSuccessSetter = true;
   }
 }

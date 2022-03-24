@@ -1,3 +1,4 @@
+import { ToastsService } from './../../shared/services/toasts.service';
 import { BooksService } from './../../booksie/services/books.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private readonly vs: ValidatorService,
     private readonly as: AuthService,
     private readonly router: Router,
-    private readonly bs: BooksService
+    private readonly bs: BooksService,
+    private readonly toastr: ToastsService
   ) {}
 
   ngOnInit(): void {}
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
       );
 
       if (user) {
-        this.bs.showToastSetter = true;
+        this.toastr.showToastSuccessSetter = true;
         this.router.navigate(['/home']);
       } else {
         this.loginForm.markAllAsTouched();

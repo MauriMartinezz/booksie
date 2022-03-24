@@ -1,3 +1,4 @@
+import { ToastsService } from './../../../shared/services/toasts.service';
 import { Book } from './../../models/Book.interface';
 import { BooksService } from './../../services/books.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   public books!: Book[];
   public query!: string;
   showToast!: boolean;
-  constructor(private bs: BooksService, private toastr: ToastrService) {}
+  constructor(private bs: BooksService, private toastr: ToastsService) {}
 
   ngOnInit(): void {
     this.shouldToastBeShown();
@@ -20,18 +21,16 @@ export class HomeComponent implements OnInit {
 
   searchBook(e: string) {
     this.query = e;
-    this.bs.getBooks(e).subscribe((book: Book[]) => {
-      let bookList: Book[] = book.filter(
-        (volumeImages) => volumeImages.volumeInfo.imageLinks.medium
-      );
-      this.books = bookList;
+    this.bs.getBooks(e).subscribe(() => {
+      this.books = this.bs.booksGetter;
     });
   }
 
   shouldToastBeShown(): boolean {
-    if (this.bs.showToastGetter == true) {
-      this.bs.showToastSetter = false;
-      this.toastr.success('Book lend succesfully', 'Done!');
+    if (this.toastr.showToastSuccessGetter === true) {
+      this.toastr.showSuccess('Book lend succesfully', 'Done!');
+      console.log(this.toastr.showToastSuccessGetter);
+
       return true;
     } else {
       this.showToast = false;

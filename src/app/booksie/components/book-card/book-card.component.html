@@ -1,19 +1,25 @@
-<div class="card__container row justify-content-around">
+<ng-template *ngIf="!books" class="d-flex justify-content-center">
+  <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+</ng-template>
+<div class="card__container row justify-content-around" *ngIf="books">
   <div
     *ngFor="let book of books"
-    class="card shadow col-3 my-3 mx-1 px-0"
+    class="card shadow col-md-3 col-sm-12 my-3 mx-1 px-0"
     [class]="{
       'col-3': isBookLend,
-      row: isBookLend
+      row: isBookLend,
+      'd-none': book == undefined || book == null
     }"
   >
     <img
       [src]="
-        book.volumeInfo.imageLinks.large
-          ? book.volumeInfo.imageLinks.large
-          : book.volumeInfo.imageLinks.medium
+        book.volumeInfo.imageLinks
+          ? book.volumeInfo.imageLinks.thumbnail
+          : '/assets/book.png'
       "
-      class="card-img-top"
+      class="card-img-top w-100"
       [alt]="book.volumeInfo.title"
     />
     <div class="card-title">
@@ -21,23 +27,35 @@
         <h5 class="card-title">
           {{ book.volumeInfo.title }}
         </h5>
-        <p
-          class="card-text"
-          *ngIf="book.volumeInfo.description"
-          [class]="{ 'd-none': isBookLend }"
+      </div>
+
+      <p class="card-text" [class]="{ 'd-none': isBookLend }">
+        {{
+          !book.volumeInfo.description
+            ? "sorry there's no description available for this book"
+            : (book.volumeInfo.description | description: 100)
+        }}
+      </p>
+
+      <div class="buttons">
+        <a
+          [routerLink]="['/book/', book.id]"
+          class="btn btn-primary flex-end btn-block"
+          >More info</a
         >
-          {{ book.volumeInfo.description | description: 100 }}
-        </p>
-        <div class="buttons">
-          <a
-            [routerLink]="['/book/', book.id]"
-            class="btn btn-primary flex-end btn-block"
-            >More info</a
-          >
-          <button class="btn btn-danger mt-3 btn-block" *ngIf="isBookLend">
-            Return book
-          </button>
-        </div>
+        <!-- <button
+          class="btn btn-danger mt-3 btn-block"
+          *ngIf="isBookLend"
+          (click)="wantToReturnBook(book.id)"
+        >
+          Return book
+        </button> -->
+        <app-confirm
+          *ngIf="isBookLend"
+          [toLoan]="false"
+          (onAccept)="wantToReturnBook(book.id, $event)"
+        >
+        </app-confirm>
       </div>
     </div>
   </div>

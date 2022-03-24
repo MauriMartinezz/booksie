@@ -32,6 +32,10 @@ export class FirebaseService {
     return this.firestore.collection('/users').doc(id);
   }
 
+  loanBook(uid: string, book: BookLoan) {
+    this.getUserById(uid).collection('books').doc(book.id).set(book);
+  }
+
   fetchUserData(id: string): Observable<any> {
     return this.firestore.collection('/users').doc(id).valueChanges();
   }
